@@ -1,0 +1,1 @@
+example 1 where we deploy default sensepitch image with minimal config
