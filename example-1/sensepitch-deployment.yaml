@@ -1,0 +1,29 @@
+# sensepitch-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: example-1
+  name: sensepitch-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sensepitch-proxy
+  template:
+    metadata:
+      labels:
+        app: sensepitch-proxy
+    spec:
+      containers:
+        - name: sensepitch
+          image: sensepitch:latest
+          imagePullPolicy: Never # use local built one
+          ports:
+            - containerPort: 17443
+          env:
+            - name: SENSEPITCH_EDGE_LISTEN_HTTPS_PORT
+              value: "17443"
+            - name: SENSEPITCH_EDGE_SITES_0_KEY
+              value: "localhost"
+            - name: SENSEPITCH_EDGE_SITES_0_UPSTREAM_TARGET
+              value: "nginx-service:80"

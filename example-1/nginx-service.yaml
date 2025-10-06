@@ -1,0 +1,13 @@
+# nginx-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: example-1
+  name: nginx-service
+spec:
+  selector:
+    app: nginx  # This matches the labels on our Nginx pods
+  ports:
+    - protocol: TCP
+      port: 80       # The port the service is available on
+      targetPort: 80 # The port the Nginx container is listening on
