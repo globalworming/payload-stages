@@ -34,10 +34,14 @@ minikube kubectl -- apply -n argocd -f https://raw.githubusercontent.com/argopro
 
 ```
 
-has some warnings like
+argocd-server has some warnings like
 
-```json
-{"level":"warning","msg":"Unable to parse updated settings: server.secretkey is missing","time":"2025-10-06T08:16:04Z"}
+```JSON
+[
+{"level":"warning","msg":"Unable to parse updated settings: server.secretkey is missing","time":"2025-10-28T10:33:15Z"},
+{"level":"warning","msg":"Static assets directory \"/shared/app\" does not exist, using only embedded assets","time":"2025-10-28T10:33:16Z"},
+{"level":"warning","msg":"Failed to resync revoked tokens. retrying again in 1 minute: dial tcp 10.106.84.98:6379: connect: connection refused","time":"2025-10-28T10:33:20Z"},
+]
 ```
 
 ```shell
@@ -54,16 +58,16 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 add more ns
 ```shell
 # in its own namespace
-minikube kubectl -- create namespace example-1
+minikube kubectl -- create namespace payload-example
 ```
 
 ## build image
-make sensepitch available for argo by building with minikube
+make payload available for argo by building with minikube
 
 ```shell
 # use minikube docker
 eval $(minikube -p minikube docker-env)
-cd $SENSEPITCH_DIR 
+ 
 docker build -t sensepitch:latest .
 ```
 
@@ -74,14 +78,14 @@ in argo UI, add app, edit as yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sensepitch-stages
+  name: payload-stages
 spec:
   destination:
-    namespace: default
+    namespace: payload-example
     server: https://kubernetes.default.svc
   source:
     path: .
-    repoURL: https://github.com/globalworming/sensepitch-stages
+    repoURL: https://github.com/globalworming/payload-stages
     targetRevision: main
     directory:
       recurse: true
