@@ -1,3 +1,9 @@
+- [x] there are 3 roles: admin, creator, !user
+  - access control origin? for when you incluse images only in your blog and shop 
+- [X] admin can edit roles
+- [ ] creator can update, read media collection
+- [ ] !user can read api media url
+
 # Payload Blank Template
 
 This template comes configured with the bare minimum to get started on anything you need.
