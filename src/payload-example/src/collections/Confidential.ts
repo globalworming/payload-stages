@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import {admins} from "@/collections/access";
 
 
 export const Confidential: CollectionConfig = {
@@ -7,30 +8,27 @@ export const Confidential: CollectionConfig = {
     singular: 'Confidential',
     plural: 'Confidential',
   },
-  admin: {
-    useAsTitle: 'filename',
-  },
   access: {
-    // Only logged-in users can view this media
-    read: ({ req }) => !!req.user,
-  },
-  upload: {
-    imageSizes: [
-      {
-        name: 'thumbnail',
-        width: 400,
-        height: 300,
-        position: 'centre',
-      },
-
-    ],
-    adminThumbnail: 'thumbnail',
+    read: admins,
+    delete: () => false
   },
   fields: [
+    {
+      name: 'title',
+      type: 'text',
+      label: 'Title',
+    },
     {
       name: 'description',
       type: 'richText',
       label: 'Description',
     },
+    {
+      name: 'relatesTo',
+      type: 'relationship',
+      relationTo: 'confidentialMedia',
+      hasMany: true,
+      label: 'Related items',
+    }
   ],
 };

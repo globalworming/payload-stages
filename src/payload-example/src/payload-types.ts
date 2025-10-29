@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     confidential: Confidential;
+    confidentialMedia: ConfidentialMedia;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     confidential: ConfidentialSelect<false> | ConfidentialSelect<true>;
+    confidentialMedia: ConfidentialMediaSelect<false> | ConfidentialMediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -165,6 +167,7 @@ export interface Media {
  */
 export interface Confidential {
   id: number;
+  title?: string | null;
   description?: {
     root: {
       type: string;
@@ -180,6 +183,16 @@ export interface Confidential {
     };
     [k: string]: unknown;
   } | null;
+  relatesTo?: (number | ConfidentialMedia)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "confidentialMedia".
+ */
+export interface ConfidentialMedia {
+  id: number;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -220,6 +233,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'confidential';
         value: number | Confidential;
+      } | null)
+    | ({
+        relationTo: 'confidentialMedia';
+        value: number | ConfidentialMedia;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -309,7 +326,17 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "confidential_select".
  */
 export interface ConfidentialSelect<T extends boolean = true> {
+  title?: T;
   description?: T;
+  relatesTo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "confidentialMedia_select".
+ */
+export interface ConfidentialMediaSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   url?: T;
