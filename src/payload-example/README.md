@@ -1,8 +1,62 @@
+TODO
+
 - [x] there are 3 roles: admin, creator, !user
   - access control origin? for when you incluse images only in your blog and shop 
 - [X] admin can edit roles
+- [ ] admin can update, read media collection
 - [ ] creator can update, read media collection
+- [ ] creator can create and update tags
 - [ ] !user can read api media url
+
+---
+
+regarding migration, got in dev this message:
+```text
+[✓] Pulling schema from database...
+Is confidential table created or renamed from another table?
+  + confidential              create table
+❯ ~ moreimages › confidential rename table
+
+
+~ moreimages_id › confidential_id column will be renamed
+--- all columns conflicts in payload_locked_documents_rels table resolved ---
+
+ ⨯ Error: Failed query: INSERT INTO `__new_payload_locked_documents_rels`("id", "order", "parent_id", "path", "users_id", "media_id", "confidential_id") SELECT "id", "order", "parent_id", "path", "users_id", "media_id", "confidential_id" FROM `payload_locked_documents_rels`;
+params: 
+    at async HomePage (src/app/(frontend)/page.tsx:13:18)
+  11 |   const headers = await getHeaders()
+  12 |   const payloadConfig = await config
+> 13 |   const payload = await getPayload({ config: payloadConfig })
+     |                  ^
+  14 |   const { user } = await payload.auth({ headers })
+  15 |
+  16 |   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}` {
+  query: 'INSERT INTO `__new_payload_locked_documents_rels`("id", "order", "parent_id", "path", "users_id", "media_id", "confidential_id") SELECT "id", "order", "parent_id", "path", "users_id", "media_id", "confidential_id" FROM `payload_locked_documents_rels`;',
+  params: [],
+  payloadInitError: true,
+  digest: '3596945449',
+  [cause]: [Error [LibsqlError]: SQLITE_ERROR: no such column: confidential_id] {
+    code: 'SQLITE_ERROR',
+    rawCode: 1,
+    [cause]: [SqliteError: no such column: confidential_id] {
+      code: 'SQLITE_ERROR',
+      rawCode: 1
+    }
+  }
+}
+ GET / 500 in 12525ms
+
+
+```
+after restart i can access dev again, though file references are not resolvable
+
+```text
+ERROR: File test-400x300.jpg for collection confidential is missing on the disk. Expected path: /home/wormi/workspace/globalworming/payload-stages/src/payload-example/confidential/test-400x300.jpg
+
+```
+so renaming tables may be a bad idea? do you have to migrate the folders then? 
+
+---
 
 # Payload Blank Template
 

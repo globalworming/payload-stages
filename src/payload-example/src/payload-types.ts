@@ -69,7 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    moreimages: Moreimage;
+    confidential: Confidential;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -78,7 +78,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    moreimages: MoreimagesSelect<false> | MoreimagesSelect<true>;
+    confidential: ConfidentialSelect<false> | ConfidentialSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -161,12 +161,11 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "moreimages".
+ * via the `definition` "confidential".
  */
-export interface Moreimage {
+export interface Confidential {
   id: number;
-  alt: string;
-  caption?: {
+  description?: {
     root: {
       type: string;
       children: {
@@ -201,22 +200,6 @@ export interface Moreimage {
       filesize?: number | null;
       filename?: string | null;
     };
-    card?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    tablet?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
   };
 }
 /**
@@ -235,8 +218,8 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'moreimages';
-        value: number | Moreimage;
+        relationTo: 'confidential';
+        value: number | Confidential;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -323,11 +306,10 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "moreimages_select".
+ * via the `definition` "confidential_select".
  */
-export interface MoreimagesSelect<T extends boolean = true> {
-  alt?: T;
-  caption?: T;
+export interface ConfidentialSelect<T extends boolean = true> {
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -343,26 +325,6 @@ export interface MoreimagesSelect<T extends boolean = true> {
     | T
     | {
         thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        card?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        tablet?:
           | T
           | {
               url?: T;

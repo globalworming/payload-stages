@@ -1,6 +1,6 @@
 import type {CollectionConfig, FieldAccess} from 'payload'
 import type { Access } from 'payload'
-import type { User } from '../payload-types'
+import type { User } from '@/payload-types'
 
 const checkHasAllRoles = (allOfThese: User['roles'] = [], user: User | null = null): boolean => {
 

@@ -1,4 +1,4 @@
-# sensepitch-stages
+# payload-stages
 
 ## install minikube
 
@@ -68,7 +68,7 @@ make payload available for argo by building with minikube
 # use minikube docker
 eval $(minikube -p minikube docker-env)
  
-docker build -t sensepitch:latest .
+docker build -t payload:latest .
 ```
 
 ## create application
@@ -100,14 +100,6 @@ spec:
 
 ```
 
-<img src="./argo.png" width="600"/>
+## test 
 
-## test example-1
-
-```shell
-minikube kubectl -- port-forward deployment/sensepitch-proxy 8443:17443 -n example-1
-```
-
-```shell
-curl -k https://localhost:8443
-```
+- [ ] test
