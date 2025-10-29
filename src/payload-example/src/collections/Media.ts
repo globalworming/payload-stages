@@ -11,6 +11,12 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'tags',
+      type: 'text',
+      hasMany: true,
+      label: 'Tags',
+    }
   ],
   upload: true,
 }
