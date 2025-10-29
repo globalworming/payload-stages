@@ -30,7 +30,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sharp": "0.34.2",
-    "@payloadcms/db-sqlite": "3.61.1"
+    "@payloadcms/db-postgres": "3.61.1"
   },
   "devDependencies": {
     "@playwright/test": "1.54.1",

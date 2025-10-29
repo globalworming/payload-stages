@@ -5,8 +5,10 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+/.pnpm-store
 
 /.idea/*
+/.vscode
 !/.idea/runConfigurations
 
 # testing
@@ -42,6 +44,7 @@ next-env.d.ts
 
 /media
 /confidential
+/confidentialMedia
 
 # Playwright
 node_modules/
