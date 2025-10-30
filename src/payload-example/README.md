@@ -10,11 +10,11 @@ TODO
   - versions feature plus field that sets the user who made the change   
 - [ ] !user can read api media url
 - [ ] !user can not read api confidential media url
-- [ ] deploy to minikube
+- [x] deploy to minikube
   - deploy postgres
   - secret to store payload postgres credentials
   - deploy payload and service
-    - use payload on start function to create first user from secret env variables if does not exist
+    - ~use payload on start function to create first user from secret env variables if does not exist~ created 2 default users in database migration
   
 
 ---

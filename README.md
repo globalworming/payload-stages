@@ -88,7 +88,7 @@ spec:
     repoURL: https://github.com/globalworming/payload-stages
     targetRevision: main
     directory:
-      recurse: true
+      recurse: false
   sources: []
   project: default
   syncPolicy:
@@ -109,6 +109,6 @@ spec:
 kubectl port-forward -n payload-example service/payload 3001:3000
 ```
 
-open http://localhost:3001, login with `payload@headissue.test:123123123`
-go to http://localhost:3001/admin/collections/users/1 and change password
-add creator role or create new user
+open http://localhost:3001, login with `admin@payload.test:123123123`  
+or  
+open http://localhost:3001, login with `creator@payload.test:123123123`
