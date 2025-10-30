@@ -3,10 +3,16 @@ TODO
 - [x] there are 3 roles: admin, creator, !user
   - access control origin? for when you incluse images only in your blog and shop 
 - [X] admin can edit roles
-- [ ] admin can update, read media collection
-- [ ] creator can update, read media collection
+- [x] admin can update, read media collection
+- [x] creator can update, read media collection
 - [ ] creator can create and update tags
 - [ ] !user can read api media url
+- [ ] deploy to minikube
+  - deploy postgres
+  - secret to store payload postgres credentials
+  - deploy payload and service
+    - use payload on start function to create first user from secret env variables if does not exist
+  
 
 ---
 
