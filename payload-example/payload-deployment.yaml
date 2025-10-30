@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payload
+  namespace: payload-example
+  labels:
+    app: payload
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payload
+  template:
+    metadata:
+      labels:
+        app: payload
+    spec:
+      #initContainers:
+      #  - name: fix-permissions
+      #    image: busybox:1.36
+      #    command: ['sh', '-c', 'mkdir -p /uploads && chown -R 1001:1001 /uploads']
+      #    volumeMounts:
+      #      - name: media-storage
+      #        mountPath: /uploads
+      containers:
+        - name: payload
+          image: payload:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: media-storage
+              mountPath: /app/uploads
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: payload-config
+                  key: NODE_ENV
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: payload-config
+                  key: DATABASE_URI
+            - name: PAYLOAD_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: payload-config
+                  key: PAYLOAD_SECRET
+          livenessProbe:
+            httpGet:
+              path: /api/access/health
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/access/health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: media-storage
+          persistentVolumeClaim:
+            claimName: uploads-pvc

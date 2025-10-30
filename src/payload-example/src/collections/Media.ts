@@ -24,5 +24,8 @@ export const Media: CollectionConfig = {
       },
     }
   ],
-  upload: true,
+  upload: {
+    bulkUpload: true,
+    staticDir: 'uploads/media',
+  },
 }

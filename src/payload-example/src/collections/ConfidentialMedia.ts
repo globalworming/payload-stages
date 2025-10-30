@@ -17,6 +17,7 @@ export const ConfidentialMedia: CollectionConfig = {
 
   },
   upload: {
+    staticDir: 'uploads/confidentialMedia',
     imageSizes: [
       {
         name: 'thumbnail',
