@@ -175,7 +175,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_preferences_rels_path_idx" ON "payload_preferences_rels" USING btree ("path");
   CREATE INDEX "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");
   CREATE INDEX "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
-  CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");`)
+  CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");
+
+  INSERT INTO public.users (id, updated_at, created_at, email, reset_password_token, reset_password_expiration, salt, hash, login_attempts, lock_until) VALUES (1, '2025-10-30 08:27:30.836 +00:00', '2025-10-30 08:27:30.834 +00:00', 'payload@headissue.test', null, null, 'a2bb3d74bfa39621f3c76e6003c26a9304e09742acb9f02011e46bf1c4b080aa', '9d117dcca263dfcca3000af83f0c68f3f24788735bacb2fb1a782d59e1cc40d3a4d2f90d19281867ebafc526f695672ba08f5797501b1ec791323c54eb2c7cc0f2d4757b2198aca1e89ce3f0d48d02934acccd127bf1fc380491d062bc6d19dfdf27404dc7cb23dbfed791ac762f5aad3aaf8ced10a8a60a3ab100faf4657c80b960d7b11533141950667969b82a9e02cb2b2afb9e00a1fb2ca213ce4b1db1b7fa18ec32b57e2017ed61975209587670b9b088da936a1095acd7405867cdc792323c34c76667ca7693974e8348bbce67c1b1df0d5fcc5bb0a723281f712959ba1cb50072f06ff3a4b89bbf82ca771e6593e78f76e73283e938f5c450ddfe7de3cb7810e74e90ba2e09fd4ae221b6ec94e58103fc2b976a23a683a31bca309dc85d78ad844a2daef3bae880ef9940fa82222c33d27ee9f0e422d5c47f7934d582dd6adc27a2b83d08e0342e65fed644add855bf30bdfd22b2413cc8a97af6eed2567d8c8f89790bf6a461b0ec957b427dc5c3e3c2bd9e3782ce3d17d735eb69cb457a0782e851a1ff660500dcdcf6f8c48fbdc62fae2e96162a9132eef33d697c5f6def2f1474a3d8f9073ee5374b8fb7501b160c25a93db8c16ec0c2fa789331c6de7365a5ec758a9ad13d0c695231d696b74f61431b667659d760a73fca38bfb55003ce7480feeb460321d08f80989aa4ef25924afee5d607091f51a0136984', 0, null);
+  INSERT INTO public.users_roles ("order", parent_id, value, id) VALUES (1, 1, 'admin', 2);
+
+`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {

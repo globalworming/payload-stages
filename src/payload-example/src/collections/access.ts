@@ -7,10 +7,6 @@ export const checkHasAllRoles = (allOfThese: User['roles'] = [], user: User | nu
     return false
   }
 
-  if (user.id === 1) {
-    return true
-  }
-
   return !!allOfThese?.every((role) => {
     return user?.roles?.some((individualRole) => {
       return individualRole === role
