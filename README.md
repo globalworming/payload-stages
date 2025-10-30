@@ -84,7 +84,7 @@ spec:
     namespace: payload-example
     server: https://kubernetes.default.svc
   source:
-    path: .
+    path: ./payload-example
     repoURL: https://github.com/globalworming/payload-stages
     targetRevision: main
     directory:
@@ -96,6 +96,7 @@ spec:
       prune: true
       selfHeal: false
       enabled: true
+
 
 
 ```

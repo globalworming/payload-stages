@@ -47,18 +47,12 @@ spec:
                 secretKeyRef:
                   name: payload-config
                   key: PAYLOAD_SECRET
-          livenessProbe:
+          startupProbe:
             httpGet:
-              path: /api/access/health
+              path: /admin
               port: 3000
-            initialDelaySeconds: 30
+            initialDelaySeconds: 1
             periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /api/access/health
-              port: 3000
-            initialDelaySeconds: 10
-            periodSeconds: 5
       volumes:
         - name: media-storage
           persistentVolumeClaim:

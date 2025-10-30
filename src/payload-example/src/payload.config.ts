@@ -41,4 +41,8 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  onInit: (payload) => {
+    // you can set up data here as well
+    console.log('Payload initialized')
+  }
 })
