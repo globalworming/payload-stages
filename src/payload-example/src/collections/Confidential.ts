@@ -1,5 +1,5 @@
-import type { CollectionConfig } from 'payload'
-import {admins} from "@/collections/access";
+import type { CollectionConfig, FieldAccess } from 'payload'
+import { admins, adminsAndCreators } from '@/collections/access'
 
 
 export const Confidential: CollectionConfig = {
@@ -11,6 +11,9 @@ export const Confidential: CollectionConfig = {
   access: {
     read: admins,
     delete: () => false
+  },
+  versions: {
+    maxPerDoc: 0, // unlimited
   },
   fields: [
     {
@@ -29,6 +32,27 @@ export const Confidential: CollectionConfig = {
       relationTo: 'confidentialMedia',
       hasMany: true,
       label: 'Related items',
-    }
+    },
+    {
+      name: 'lastEditedBy',
+      type: 'relationship',
+      relationTo: 'users',
+      label: 'Latest Edit By',
+      access: {
+        read: adminsAndCreators as FieldAccess,
+        create: () => false,
+        update: () => false
+      }
+    },
   ],
+  hooks: {
+    beforeChange: [
+      ({ req, data }) => {
+        if (req && req.user) {
+          data.lastEditedBy = req.user.id;
+        }
+        return data;
+      }
+    ]
+  }
 };

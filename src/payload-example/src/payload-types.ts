@@ -149,6 +149,7 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  tags?: string[] | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -184,6 +185,7 @@ export interface Confidential {
     [k: string]: unknown;
   } | null;
   relatesTo?: (number | ConfidentialMedia)[] | null;
+  lastEditedBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -309,6 +311,7 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  tags?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -329,6 +332,7 @@ export interface ConfidentialSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   relatesTo?: T;
+  lastEditedBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }

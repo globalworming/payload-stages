@@ -5,8 +5,11 @@ TODO
 - [X] admin can edit roles
 - [x] admin can update, read media collection
 - [x] creator can update, read media collection
-- [ ] creator can create and update tags
+- [x] creator can create and update tags
+- [x] audit changes:
+  - versions feature plus field that sets the user who made the change   
 - [ ] !user can read api media url
+- [ ] !user can not read api confidential media url
 - [ ] deploy to minikube
   - deploy postgres
   - secret to store payload postgres credentials

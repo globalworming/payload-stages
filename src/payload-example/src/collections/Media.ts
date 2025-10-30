@@ -1,4 +1,5 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, FieldAccess } from 'payload'
+import { admins, adminsAndCreators } from '@/collections/access'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -16,6 +17,11 @@ export const Media: CollectionConfig = {
       type: 'text',
       hasMany: true,
       label: 'Tags',
+      access: {
+        create: admins as FieldAccess,
+        read: adminsAndCreators as FieldAccess,
+        update: admins as FieldAccess,
+      },
     }
   ],
   upload: true,
