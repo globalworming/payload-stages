@@ -20,6 +20,7 @@ export const Confidential: CollectionConfig = {
       name: 'title',
       type: 'text',
       label: 'Title',
+      localized: true,
     },
     {
       name: 'description',

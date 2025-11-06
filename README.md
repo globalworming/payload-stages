@@ -57,8 +57,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 add more ns
 ```shell
-# in its own namespace
 minikube kubectl -- create namespace payload-example
+minikube kubectl -- create namespace payload-example-ecommerce
 ```
 
 ## build image
@@ -67,8 +67,12 @@ make payload available for argo by building with minikube
 ```shell
 # use minikube docker
 eval $(minikube -p minikube docker-env)
- 
-docker build -t payload:latest .
+current_dir=$(pwd)
+for dir in "payload-example" "payload-example-ecommerce"; do
+  cd "src/$dir"
+  docker build -t "$dir:latest" .
+  cd "$current_dir"
+done
 ```
 
 ## create application
