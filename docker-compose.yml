@@ -1,12 +1,23 @@
 version: '3'
 
 services:
-  payload:
+  payload-example:
     build:
       context: ./src/payload-example
       dockerfile: Dockerfile
     ports:
       - '3001:3000'
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+
+  payload-example-ecommerce:
+    build:
+      context: ./src/payload-example-ecommerce
+      dockerfile: Dockerfile
+    ports:
+      - '3002:3000'
     depends_on:
       - postgres
     env_file:

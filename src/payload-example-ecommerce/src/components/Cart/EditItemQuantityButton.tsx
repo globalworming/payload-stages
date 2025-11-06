@@ -51,9 +51,9 @@ export function EditItemQuantityButton({ type, item }: { item: CartItem; type: '
 
           if (item.id) {
             if (type === 'plus') {
-              incrementItem(item.id)
+              incrementItem(parseInt(item.id, 10))
             } else {
-              decrementItem(item.id)
+              decrementItem(parseInt(item.id, 10))
             }
           }
         }}
