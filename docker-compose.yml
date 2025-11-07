@@ -8,22 +8,11 @@ services:
     ports:
       - '3001:3000'
     depends_on:
-      - postgres
+      - postgres-payload-example
     env_file:
-      - .env
+      - payload-example.env
 
-  payload-example-ecommerce:
-    build:
-      context: ./src/payload-example-ecommerce
-      dockerfile: Dockerfile
-    ports:
-      - '3002:3000'
-    depends_on:
-      - postgres
-    env_file:
-      - .env
-
-  postgres:
+  postgres-payload-example:
     image: postgres:16-alpine
     restart: always
     environment:
@@ -34,6 +23,31 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  
+  ### FIXME database is required for building payload ecommerce
+  #payload-example-ecommerce:
+  #  build:
+  #    context: ./src/payload-example-ecommerce
+  #    dockerfile: Dockerfile
+  #  ports:
+  #    - '3002:3000'
+  #  depends_on:
+  #    - postgres-payload-example-ecommerce
+  #  env_file:
+  #    - payload-example-ecommerce.env
+  #postgres-payload-example-ecommerce:
+  #  image: postgres:16-alpine
+  #  restart: always
+  #  environment:
+  #    POSTGRES_USER: payload
+  #    POSTGRES_PASSWORD: payload
+  #    POSTGRES_DB: payload
+  #  volumes:
+  #    - pgdata:/var/lib/postgresql/data
+  #  ports:
+  #    - "54321:5432"
+
 
 volumes:
   pgdata:
