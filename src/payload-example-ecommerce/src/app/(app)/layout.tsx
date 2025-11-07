@@ -12,6 +12,8 @@ import { GeistMono } from 'geist/font/mono'
 import React from 'react'
 import './globals.css'
 
+export const dynamic = 'force-dynamic'
+
 /* const { SITE_NAME, TWITTER_CREATOR, TWITTER_SITE } = process.env
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`

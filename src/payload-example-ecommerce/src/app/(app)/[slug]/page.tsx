@@ -12,7 +12,7 @@ import React from 'react'
 import type { Page } from '@/payload-types'
 import { notFound } from 'next/navigation'
 
-export async function generateStaticParams() {
+/* export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
@@ -33,8 +33,10 @@ export async function generateStaticParams() {
       return { slug }
     })
 
-  return params
-}
+  return params 
+} */
+
+export const dynamic = 'force-dynamic';
 
 type Args = {
   params: Promise<{
