@@ -1,6 +1,14 @@
 # payload-stages
 
-## install minikube
+## payload-stages with docker
+
+- [ ] todo
+## test
+
+
+## payload-stages with minikube
+
+### install minikube
 
 ```shell
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
@@ -21,7 +29,7 @@ minikube kubectl -- get pods -A
 #alias kubectl="minikube kubectl --"
 ```
 
-## setup argo
+### setup argo
 
 ```shell
 # in its own namespace
@@ -61,7 +69,7 @@ minikube kubectl -- create namespace payload-example
 minikube kubectl -- create namespace payload-example-ecommerce
 ```
 
-## build image
+### build image
 make payload available for argo by building with minikube
 
 ```shell
@@ -75,7 +83,7 @@ for dir in "payload-example" "payload-example-ecommerce"; do
 done
 ```
 
-## create application
+### create application
 in argo UI, add app, edit as yaml
 
 ```yaml
@@ -105,7 +113,7 @@ spec:
 
 ```
 
-## test 
+### test 
 
 - [x] test
 
