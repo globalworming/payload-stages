@@ -23,7 +23,7 @@ spec:
             - containerPort: 3000
           volumeMounts:
             - name: media-storage
-              mountPath: /app/uploads
+              mountPath: /app/public/media
           env:
             - name: NODE_ENV
               valueFrom:

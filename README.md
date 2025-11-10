@@ -2,10 +2,9 @@
 
 ## payload-stages with docker
 
-- [ ] docker compose, image start now awaits input... `? It looks like you've run Payload in dev mode, meaning you've dynamically pushed changes to your database. If you'd like to run migrations, data loss will occur. Would you like to proceed? › (y/N)`
-
-## test
-
+```shell
+docker compose -f docker-compose.yml up -d --build
+```
 
 ## payload-stages with minikube
 
@@ -17,10 +16,7 @@ sudo dpkg -i minikube_latest_amd64.deb
 ```
 
 ```shell
-minikube start \
-  --driver=docker # others? kvm2?
-
-# minikube stop   
+minikube start --driver=docker
 ```
 
 ```shell
@@ -31,7 +27,6 @@ minikube kubectl -- get pods -A
 ```
 
 ### setup argo
-
 ```shell
 # in its own namespace
 minikube kubectl -- create namespace argocd
@@ -91,7 +86,7 @@ in argo UI, add app, edit as yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: payload-stages
+  name: payload-example
 spec:
   destination:
     namespace: payload-example
@@ -111,12 +106,37 @@ spec:
       enabled: true
 
 
+```
+
+same for
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payload-example-ecommerce
+spec:
+  destination:
+    namespace: payload-example-ecommerce
+    server: https://kubernetes.default.svc
+  source:
+    path: ./payload-example-ecommerce
+    repoURL: https://github.com/globalworming/payload-stages
+    targetRevision: main
+    directory:
+      recurse: false
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+      enabled: true
+
 
 ```
 
 ### test 
-
-- [x] test
 
 ```bash
 kubectl port-forward -n payload-example service/payload 3001:3000
@@ -125,3 +145,9 @@ kubectl port-forward -n payload-example service/payload 3001:3000
 open http://localhost:3001, login with `admin@payload.test:123123123`  
 or  
 open http://localhost:3001, login with `creator@payload.test:123123123`
+
+```bash
+kubectl port-forward -n payload-example-ecommerce service/payload 3002:3000
+```
+
+open http://localhost:3002, create admin, go to admin, press `seed`
