@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payload
+  namespace: payload-example-ecommerce
+  labels:
+    app: payload
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payload
+  template:
+    metadata:
+      labels:
+        app: payload
+    spec:
+      containers:
+        - name: payload
+          image: payload-example-ecommerce:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: media-storage
+              mountPath: /app/uploads
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: payload-config
+                  key: NODE_ENV
+            - name: DATABASE_URI
+              valueFrom:
+                secretKeyRef:
+                  name: payload-config
+                  key: DATABASE_URI
+            - name: PAYLOAD_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: payload-config
+                  key: PAYLOAD_SECRET
+          startupProbe:
+            httpGet:
+              path: /admin
+              port: 3000
+            initialDelaySeconds: 1
+            periodSeconds: 10
+      volumes:
+        - name: media-storage
+          persistentVolumeClaim:
+            claimName: uploads-pvc

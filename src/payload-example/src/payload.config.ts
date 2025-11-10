@@ -33,7 +33,7 @@ export default buildConfig({
         pool: {
           connectionString: process.env.DATABASE_URI || '',
         },
-        prodMigrations: migrations
+        prodMigrations: migrations,
       }),
 
   sharp,
